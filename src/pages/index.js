@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const gpaMap: { [key: string]: number } = {
+const gpaMap = {
   A: 4.0,
   B: 3.0,
   C: 2.0,
@@ -8,7 +8,7 @@ const gpaMap: { [key: string]: number } = {
   F: 0.0
 };
 
-const calculateGPA = (grades: string[]): number => {
+const calculateGPA = (grades) => {
   if (grades.length === 0) {
     return 0;
   }
@@ -17,8 +17,7 @@ const calculateGPA = (grades: string[]): number => {
   let totalCredits = 0;
 
   grades.forEach(grade => {
-    const [letterGrade, creditHoursString] = grade && grade.split(" ") || [];
-
+    const [letterGrade, creditHoursString] = grade && grade.split(" ");
     if (!letterGrade || !creditHoursString) {
       return;
     }
@@ -41,14 +40,14 @@ const calculateGPA = (grades: string[]): number => {
 };
 
 const HomePage = () => {
-  const [grades, setGrades] = useState<string[]>([]);
-  const [gpa, setGPA] = useState<number>(0);
+  const [grades, setGrades] = useState([]);
+  const [gpa, setGPA] = useState(0);
 
-  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleChange = (e) => {
     setGrades(e.target.value.split(','));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     setGPA(calculateGPA(grades));
   };
